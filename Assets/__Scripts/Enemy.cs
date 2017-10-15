@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour
+{
     public float speed = 10f;
     public float fireRate = 0.3f;
     public float health = 10;
@@ -13,15 +14,16 @@ public class Enemy : MonoBehaviour {
     public Bounds bounds;
     public Vector3 boundsCenterOffset;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Awake()
+    {
+        InvokeRepeating("CheckOffscreen", 0f, 2f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         Move();
-	}
+    }
 
     public virtual void Move()
     {
@@ -39,6 +41,25 @@ public class Enemy : MonoBehaviour {
         set
         {
             this.transform.position = value;
+        }
+    }
+
+    void CheckOffscreen()
+    {
+        if (bounds.size == Vector3.zero)
+        {
+            bounds = Utils.CombineBoundsOfChildren(this.gameObject);
+            boundsCenterOffset = bounds.center - transform.position;
+        }
+
+        bounds.center = transform.position + boundsCenterOffset;
+        Vector3 off = Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen);
+        if (off != Vector3.zero)
+        {
+            if (off.y < 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

@@ -6,12 +6,6 @@ public class Shield : MonoBehaviour {
 	public float rotationsPerSecond = 0.1f;
 	public bool ___________________________;
 	public int levelShown = 0;
-
-
-	// Use this for initialization
-	void Start () {
-
-	}
 	
 	// Update is called once per frame
 	void Update () {
