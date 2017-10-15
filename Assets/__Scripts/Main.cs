@@ -34,4 +34,14 @@ public class Main : MonoBehaviour
         go.transform.position = pos;
         Invoke("SpawnEnemy", enemySpawnRate);
     }
+
+    public void DelayedRestart(float delay)
+    {
+        Invoke("Restart", delay);
+    }
+
+    public void Restart()
+    {
+        Application.LoadLevel("_Scene_0");
+    }
 }
