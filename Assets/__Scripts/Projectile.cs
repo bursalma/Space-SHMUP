@@ -27,11 +27,11 @@ public class Projectile : MonoBehaviour {
     {
         _type = eType;
         WeaponDefinition def = Main.GetWeaponDefinition(_type);
-        renderer.material.color = def.projectileColor;
+        GetComponent<Renderer>().material.color = def.projectileColor;
     }
     void CheckOffscreen()
     {
-        if (Utils.ScreenBoundsCheck(collider.bounds, BoundsTest.offScreen) != Vector3.zero)
+        if (Utils.ScreenBoundsCheck(GetComponent<Collider>().bounds, BoundsTest.offScreen) != Vector3.zero)
         {
             Destroy(this.gameObject);
         }

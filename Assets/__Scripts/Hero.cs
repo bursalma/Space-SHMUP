@@ -17,6 +17,9 @@ public class Hero : MonoBehaviour {
 	public bool	_____________________;
 	public Bounds bounds;
 
+    public delegate void WeaponFireDelegate();
+    public WeaponFireDelegate fireDelegate;
+
 	void Awake(){
 		S = this;
 		bounds = Utils.CombineBoundsOfChildren (this.gameObject);
@@ -43,6 +46,11 @@ public class Hero : MonoBehaviour {
 		
 		// rotate the ship to make it feel more dynamic
 		transform.rotation =Quaternion.Euler(yAxis*pitchMult, xAxis*rollMult,0);
+
+        if (Input.GetAxis("Jump") == 1 && fireDelegate != null)
+        {
+            fireDelegate();
+        }
 	}
 
     public GameObject lastTriggerGo = null;
