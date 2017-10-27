@@ -4,13 +4,36 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    [SerializeField]
+    private WeaponType _type;
+    public WeaponType type
+    {
+        get
+        {
+            return (_type);
+        }
+        set
+        {
+            SetType(value);
+        }
+    }
+
+    void Awake()
+    {
+        InvokeRepeating("CheckOffscreen", 2f, 2f);
+    }
+
+    public void SetType(WeaponType eType)
+    {
+        _type = eType;
+        WeaponDefinition def = Main.GetWeaponDefinition(_type);
+        renderer.material.color = def.projectileColor;
+    }
+    void CheckOffscreen()
+    {
+        if (Utils.ScreenBoundsCheck(collider.bounds, BoundsTest.offScreen) != Vector3.zero)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
