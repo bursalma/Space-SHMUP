@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,11 @@ public class Enemy : MonoBehaviour
             originalColors[i] = materials[i].color;
         }
         InvokeRepeating("CheckOffscreen", 0f, 2f);
+    }
+
+    protected static void move()
+    {
+        throw new NotImplementedException();
     }
 
     // Update is called once per frame
