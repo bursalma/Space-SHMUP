@@ -22,6 +22,7 @@ public class Enemy_4 : Enemy {
     public Part[] parts;
 
 	void Start () {
+
         points = new Vector3[2];
         points[0] = pos;
         points[1] = pos;
@@ -29,6 +30,7 @@ public class Enemy_4 : Enemy {
         InitMovement();
 
         Transform t;
+
         foreach(Part prt in parts)
         {
             t = transform.Find(prt.name);
@@ -57,6 +59,7 @@ public class Enemy_4 : Enemy {
     public override void Move()
     {
         float u = (Time.time - timeStart) / duration;
+
         if (u >= 1)
         {
             InitMovement();
@@ -71,11 +74,14 @@ public class Enemy_4 : Enemy {
     void OnCollisionEnter(Collision coll)
     {
         GameObject other = coll.gameObject;
+
         switch (other.tag)
         {
             case "ProjectileHero":
+
                 Projectile p = other.GetComponent<Projectile>();
                 bounds.center = transform.position + boundsCenterOffset;
+
                 if (bounds.extents == Vector3.zero || Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen) != Vector3.zero)
                 {
                     Destroy(other);
@@ -84,6 +90,7 @@ public class Enemy_4 : Enemy {
 
                 GameObject goHit = coll.contacts[0].thisCollider.gameObject;
                 Part prtHit = FindPart(goHit);
+
                 if (prtHit == null)
                 {
                     goHit = coll.contacts[0].otherCollider.gameObject;
@@ -104,6 +111,7 @@ public class Enemy_4 : Enemy {
 
                 prtHit.health -= Main.W_DEFS[p.type].damageOnHit;
                 ShowLocalizedDamage(prtHit.mat);
+
                 if (prtHit.health <= 0)
                 {
                     prtHit.go.SetActive(false);
@@ -158,10 +166,12 @@ public class Enemy_4 : Enemy {
     {
         return (Destroyed(FindPart(go)));
     }
+
     bool Destroyed(string n)
     {
         return (Destroyed(FindPart(n)));
     }
+
     bool Destroyed(Part prt)
     {
         if (prt == null)

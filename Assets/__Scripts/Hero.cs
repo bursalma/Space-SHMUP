@@ -48,7 +48,9 @@ public class Hero : MonoBehaviour {
 		Vector3 off = Utils.ScreenBoundsCheck(bounds,BoundsTest.onScreen);
 		if (off != Vector3.zero) {  // we need to move ship back on screen
 			pos -= off;
-			transform.position = pos;
+            Vector3 temp = pos;
+            temp.z = 0;
+			transform.position = temp;
 		}
 		
 		// rotate the ship to make it feel more dynamic
